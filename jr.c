@@ -293,19 +293,20 @@ int callback(void *NotUsed, int argc, char **argv,
     NotUsed = 0;
     char *sep="|",*nulll="~",*clear="`";
       
-    int  check_n(const char *s,int (*foo)(char c), size_t ile) {
+    int  check_n(const char *s,int (*foo)(char c,int poz), size_t ile) {
       size_t len=strlen(s);
       len=(ile>0 && ile<len) ?ile:len;
-      for (size_t i=0;i<len;i++) if (!foo(s[i]))   return 0;
+      for (size_t i=0;i<len;i++) if (!foo(s[i],i))   return 0;
       return 1;
     }
     
-    int foo_int(char c) {
-        return ('0' > c || c > '9') ? 0 : 1;
+    int foo_int(char c, int poz) {
+        if (poz) return ('0' > c || c > '9') ? 0 : 1;
+        return ('1' > c || c > '9') ? 0 : 1; //string started with leading 0
     
     }
     
-    int foo_text(char c) {
+    int foo_text(char c, int poz) {
          //printf("%i 1%i 2%i 3%i 4%i",c,' ' >= c,c <= '}',c!=sep[0],c!=nulll[0],c!=clear[0]);
          return (' ' <= c && c <= '}' && c!=sep[0] && c!=nulll[0] && c!=clear[0]) ? 1 : 0;
     }
