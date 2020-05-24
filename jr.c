@@ -95,7 +95,7 @@ int main(void) {
     
    if (!query ) {
       // https://stackoverflow.com/questions/2496668/how-to-read-the-standard-input-into-string-variable-until-eof-in-c
-      #define BUF_SIZE 1024
+      #define BUF_SIZE 1024000
       char buffer[BUF_SIZE];
       size_t contentSize = 1; // includes NULL
       // Preallocate space.  We could just allocate one char here, 
@@ -114,8 +114,9 @@ int main(void) {
           exit(1);
       }
       content[0] = '\0'; // make null-terminated
-      while(fgets(buffer, BUF_SIZE, f))
-      {
+      //while(fgets(buffer, 1024000, f))
+      while (fread(buffer, 1, BUF_SIZE,f))
+          {
           char *old = content;
           contentSize += strlen(buffer);
           content = realloc(content, contentSize);
@@ -126,6 +127,7 @@ int main(void) {
               exit(2);
           }
           strcat(content, buffer);
+          fprintf(stderr, "size %d\n", contentSize);
       }
 
       if(ferror(stdin))
@@ -136,7 +138,8 @@ int main(void) {
       }
       fclose(f);
       query=content;
-  
+      fprintf(stderr, "END %s %d", queryfile,contentSize);
+      exit(4);
   }
   
     
