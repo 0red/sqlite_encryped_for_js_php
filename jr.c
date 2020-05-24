@@ -127,7 +127,7 @@ int main(void) {
               exit(2);
           }
           strcat(content, buffer);
-          fprintf(stderr, "size %d\n", contentSize);
+//          fprintf(stderr, "size %d\n", contentSize);
       }
 
       if(ferror(stdin))
@@ -138,8 +138,7 @@ int main(void) {
       }
       fclose(f);
       query=content;
-      fprintf(stderr, "END %s %d", queryfile,contentSize);
-      exit(4);
+//      fprintf(stderr, "END %s %d", queryfile,contentSize);      exit(4);
   }
   
     
