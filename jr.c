@@ -96,8 +96,8 @@ int main(void) {
    if (!query ) {
       // https://stackoverflow.com/questions/2496668/how-to-read-the-standard-input-into-string-variable-until-eof-in-c
       #define BUF_SIZE 1024000
-      char buffer[BUF_SIZE];
-      size_t contentSize = 1; // includes NULL
+      char buffer[BUF_SIZE+1];
+      size_t contentSize = 0; // includes NULL
       // Preallocate space.  We could just allocate one char here, 
       //but that wouldn't be efficient. 
       
@@ -107,7 +107,7 @@ int main(void) {
         fprintf (stderr,"Could not create tmp_file %s",queryfile);
         return 1;
       }
-      char *content = malloc(sizeof(char) * BUF_SIZE);
+      char *content = malloc(sizeof(char) * BUF_SIZE +1);
       if(content == NULL)
       {
           perror("Failed to allocate content");
@@ -115,10 +115,11 @@ int main(void) {
       }
       content[0] = '\0'; // make null-terminated
       //while(fgets(buffer, 1024000, f))
-      while (fread(buffer, 1, BUF_SIZE,f))
-          {
+      do {
+          size_t bytesRead = fread(buffer, 1, BUF_SIZE,f);
+          buffer[bytesRead]=0;
           char *old = content;
-          contentSize += strlen(buffer);
+          contentSize += bytesRead;
           content = realloc(content, contentSize);
           if(content == NULL)
           {
@@ -126,19 +127,25 @@ int main(void) {
               free(old);
               exit(2);
           }
-          strcat(content, buffer);
+          memcpy(content + contentSize - bytesRead, buffer,bytesRead);
+          content[contentSize]=0;
+//          fprintf(stderr, "%p to %p src %p content:%d read:%d\n%s", content,content + contentSize - bytesRead,buffer, contentSize,bytesRead,content);
+          
 //          fprintf(stderr, "size %d\n", contentSize);
-      }
+//break;
+      } while (!feof(f));
 
-      if(ferror(stdin))
+      if(ferror(f))
       {
           free(content);
           perror("Error reading from stdin.");
           exit(3);
       }
       fclose(f);
+//      content[contentSize]=0;
       query=content;
-//      fprintf(stderr, "END %s %d", queryfile,contentSize);      exit(4);
+//      fprintf(stderr, "LOADED %s %d %d\n\%s", queryfile,contentSize,strlen(query),query);     
+//      exit(4);
   }
   
     
