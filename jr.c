@@ -1,4 +1,5 @@
 #define SQLITE_HAS_CODEC
+#define WIN
 #include "sqlite3.h"
 //#include "jWrite.h"
 #include "base64.h"
@@ -28,7 +29,9 @@
 
 // https://github.com/utelle/wxsqlite3
 
+// C:\Program Files (x86)\Windows Kits\10\bin\10.0.18362.0\x64>
 // signtool sign /a /t http://timestamp.comodoca.com /fd SHA256 c:\MinGW\bin\jrsqlite3.dll c:\MinGW\bin\jrsqlite3.exe
+
 // gcc jr.c base64.c -L. -ljrsqlite3 -ojrsqlite3.exe
 // set path=%path%;C:\MinGW\bin
 
@@ -38,7 +41,7 @@ char *jr_end  ="---jr-end---\n";
 
 
 int callback(void *, int, char **, char **);
-long sqlite_header=0;
+long long sqlite_header=0;
 time_t  ts;
 
 int main(void) {
@@ -97,7 +100,8 @@ int main(void) {
       // https://stackoverflow.com/questions/2496668/how-to-read-the-standard-input-into-string-variable-until-eof-in-c
       #define BUF_SIZE 1024000
       char buffer[BUF_SIZE+1];
-      size_t contentSize = 0; // includes NULL
+      //size_t contentSize = 0; // includes NULL
+      long long contentSize = 0; // includes NULL
       // Preallocate space.  We could just allocate one char here, 
       //but that wouldn't be efficient. 
       
