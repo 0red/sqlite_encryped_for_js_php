@@ -2,7 +2,7 @@
 
 Please copy jrsqlite.exe, jrsqlite.dll,jr_sqlite_secure.php,jr_sql.js i.e. into the dir where the server have the html/php files. 
 
-for ExeOutput exe/dll files have to be copied to %LocalAppData%\\ExeOutput\\{App GUID} --> could not be included "inside" ExeOutput.
+for ExeOutput exe/dll files have to be copied to %LocalAppData%\\ExeOutput\\{App GUID} --> could not be included "inside" ExeOutput (so mark as external files in ExeOutput and have to be phisically copied after installation).
 
 The sqlite db file itself also will be in that directory - however it will be (is password set) AES-256 encrypted
 
