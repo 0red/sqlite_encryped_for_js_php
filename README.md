@@ -1,6 +1,11 @@
 # sqlite_encryped_for_js_php
 
-Please copy jrsqlite.exe, jrsqlite.dll,jr_sqlite_secure.php,jr_sql.js i.e. into the dir where the server have the html/php files. (for exeoutput %LocalAppData%\\ExeOutput\\{App GUID})
+Please copy jrsqlite.exe, jrsqlite.dll,jr_sqlite_secure.php,jr_sql.js i.e. into the dir where the server have the html/php files. 
+
+for ExeOutput exe/dll files have to be copied to %LocalAppData%\\ExeOutput\\{App GUID} --> could not be included "inside" ExeOutput.
+
+The sqlite db file itself also will be in that directory - however it will be (is password set) AES-256 encrypted
+
 For php usage (and password setting) please look into jr_sqlite_secure.php
 
 I'm using it as the JS frontend to encrypted sqlite in EXEOUTPUT https://www.exeoutput.com/
@@ -29,4 +34,8 @@ when installed try in chrome console
 }
 ```
 
-based on https://github.com/utelle/wxsqlite3 via https://github.com/shenghe/FreeSQLiteEncryption or https://github.com/rindeal/SQLite3-Encryption 
+based on https://github.com/utelle/wxsqlite3 
+
+via https://github.com/shenghe/FreeSQLiteEncryption or https://github.com/rindeal/SQLite3-Encryption 
+
+Please note - only tested on Windows (using EXEOutput) !!!
