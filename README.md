@@ -24,7 +24,7 @@ when installed try in chrome console
                 "INSERT INTO Cars VALUES(500, 'Bentley', 350000);" ,
                 "INSERT INTO Cars VALUES(6000, 'Citroen', 21000);" ,
                 "INSERT INTO Cars VALUES(7, 'Hummer', 41400);" ,
-                "INSERT INTO Cars VALUES(8, 'Volkswagen', null);",
+                "INSERT INTO Cars VALUES(1600000000000, 'Volkswagen', null);",
                 "UPDATE Cars SET Name='VW' where Name='Volkswagen';"
          ];
   await sql(q);
