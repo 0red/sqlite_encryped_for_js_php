@@ -12,6 +12,7 @@
 
 #include "base64.h"
 #include <stdio.h>
+#include <math.h>
 
 
 static const unsigned char base64_table[65] =
@@ -21,27 +22,33 @@ static const unsigned char base64_itable[65] =
 "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/";
 
 
-unsigned char* base64_long_encode(const long lon,
+unsigned char* base64_long_encode(const long long lon,
 	size_t* out_len) {
 	unsigned char* out, * pos;
 	const unsigned char* end, * in;
-	size_t olen;
-	long tmp=lon;
+	long long olen;
+	long long tmp=lon;
   
+
 	olen = lon/64;
-	olen+=2; /* nul termination */
+	olen = log2(lon) / 8;
+
+	olen+=3; /* nul termination */
+	//printf("00lon %lld %lld\n", lon,olen);
 	//*out_len=olen;
 	//if (olen < len)
 	//	return NULL; /* integer overflow */
 	out = malloc(olen);
 	if (out == NULL)
 		return NULL;
-  pos=out;
+	//printf("1lon %lld \n", lon);
+
+	pos=out;
   do {
-//      printf("1lon %i olen %i tmp %i %i\n",lon,olen,tmp,tmp % 64);
+      //printf("1lon %lld olen %lld tmp %lld %lld\n",lon,olen,tmp,tmp % 64);
       *pos++ = base64_itable[tmp % 64];
       tmp= tmp>>6;
-//      printf("2lon %i olen %i tmp %i %i\n",lon,olen,tmp,tmp % 64);
+      //printf("2lon %lld olen %lld tmp %lld %lld\n",lon,olen,tmp,tmp % 64);
   } while (tmp && olen--);
    
   *pos = '\0';
@@ -51,7 +58,7 @@ unsigned char* base64_long_encode(const long lon,
   return out;
 }
 
-long base64_long_decode(const unsigned char* src, size_t len) {
+long long base64_long_decode(const unsigned char* src, size_t len) {
   unsigned char* pos,dtable[256];
 	
 //	printf("\n1l:%i s:%s\n",len,src);
@@ -61,7 +68,7 @@ long base64_long_decode(const unsigned char* src, size_t len) {
 		dtable[base64_itable[i]] = (unsigned char)i;
 	dtable['='] = 0;
 	
-	long tmp=0;
+	long long tmp=0;
 	
 //	printf("2l:%i d:%s %i\n",len,src,tmp);
 	

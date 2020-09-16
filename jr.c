@@ -212,7 +212,7 @@ int main(void) {
                 "INSERT INTO Cars VALUES(500, 'Bentley', 350000);" 
                 "INSERT INTO Cars VALUES(6000, 'Citroen', 21000);" 
                 "INSERT INTO Cars VALUES(7, 'Hummer', 41400);" 
-                "INSERT INTO Cars VALUES(8, 'Volkswagen', null);"
+                "INSERT INTO Cars VALUES(1600000000000, 'Volkswagen', null);"
                 "UPDATE Cars SET Name='VW' where Name='Volkswagen';"
                 ;
 
@@ -272,7 +272,7 @@ int main(void) {
     fprintf(stdout,"rowid=%d\n", last_id);
     fprintf(stdout,"count=%d\n", sqlite_header);
     fprintf(stdout, "ts(s)=%d\n", time(NULL)-ts);
-
+ //   fprintf(stdout, "atoll=%lld\n", atoll("1600000000000"));
    
         sqlite3_close(db);
  /*   
@@ -344,10 +344,10 @@ int callback(void *NotUsed, int argc, char **argv,
             
         if (check_n(argv[i],foo_int,0)) {
           
-            unsigned char *par=base64_long_encode(atol(argv[i]),&len);
+            unsigned char *par=base64_long_encode(atoll(argv[i]),&len);
       
             if (debug) {
-              fprintf(stdout,"=%s (len:%i decode:%i)",par,len,base64_long_decode(par,len) );
+              fprintf(stdout,"=%s (len:%i decode:%lld argv:%s %lld )",par,len,base64_long_decode(par,len),argv[i], atoll(argv[i]));
               } else {
               fprintf(stdout,"=%s",par);
             }

@@ -19,9 +19,9 @@ unsigned char * base64_decode(const unsigned char *src, size_t len,
 			      size_t *out_len);
 
 
-unsigned char* base64_long_encode(const long lon,
+unsigned char* base64_long_encode(const long long lon,
 	size_t* out_len);
 	
-long base64_long_decode(const unsigned char* src, size_t len);
+long long base64_long_decode(const unsigned char* src, size_t len);
 
 #endif /* BASE64_H */
