@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-# SQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION;SQLITE_ENABLE_DBSTAT_VTAB;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_RTREE=1;SQLITE_ENABLE_SESSION;SQLITE_ENABLE_PREUPDATE_HOOK;WIN32;SQLITE_ENABLE_RTREE=1;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;SQLITE3ENCRYPT_EXPORTS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_CORE;SQLITE_ALLOW_URI_AUTHORITY;SQLITE_SOUNDEX;CODEC_TYPE=CODEC_TYPE_AES256;NDEBUG;_WINDOWS;_USRDLL;SQLITE3_EXPORTS;%(PreprocessorDefinitions)
+# SQLITE_ENABLE_CSV;SQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION;SQLITE_ENABLE_DBSTAT_VTAB;SQLITE_ENABLE_JSON1;SQLITE_ENABLE_FTS5;SQLITE_ENABLE_RTREE=1;SQLITE_ENABLE_SESSION;SQLITE_ENABLE_PREUPDATE_HOOK;WIN32;SQLITE_ENABLE_RTREE=1;SQLITE_ENABLE_COLUMN_METADATA;SQLITE_HAS_CODEC;SQLITE3ENCRYPT_EXPORTS;SQLITE_ENABLE_FTS4;SQLITE_ENABLE_FTS3;SQLITE_ENABLE_FTS3_PARENTHESIS;SQLITE_CORE;SQLITE_ALLOW_URI_AUTHORITY;SQLITE_SOUNDEX;CODEC_TYPE=CODEC_TYPE_AES256;NDEBUG;_WINDOWS;_USRDLL;SQLITE3_EXPORTS;%(PreprocessorDefinitions)
 
 # https://github.com/shenghe/FreeSQLiteEncryption or https://github.com/rindeal/SQLite3-Encryption
 
@@ -152,7 +152,7 @@ class jr_sqlite{
     
     function get($query='') {
       if ($query) $this->query($query);
-      if ($this->error || $this->wynik===false) return false; // brak wyników
+      if ($this->error || $this->wynik===false) return false; // brak wynikÃ³w
    
       $wy=array();
       foreach ($this->wynik as $k=>$v) {
@@ -166,7 +166,7 @@ class jr_sqlite{
     
     function get_array($query='') {
       if ($query) $this->query($query);
-      if ($this->error || $this->wynik===false) return false; // brak wyników
+      if ($this->error || $this->wynik===false) return false; // brak wynikÃ³w
       return $this->wynik;
     }
     
